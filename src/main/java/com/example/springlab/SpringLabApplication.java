@@ -4,9 +4,12 @@ import com.example.springlab.service.HelloService;
 import com.example.springlab.service.LabMessageFormatter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 
 @SpringBootApplication
+@ConfigurationPropertiesScan
 public class SpringLabApplication {
 
 	public static void main(String[] args) {
