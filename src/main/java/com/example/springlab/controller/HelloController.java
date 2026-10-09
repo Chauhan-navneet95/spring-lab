@@ -9,19 +9,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloController {
 
+    private HelloService helloService;
 
-    //Qualifier   - notice the naming convention, spring created bean with first letter of class small.
+    public HelloController(HelloService helloService) {
+        this.helloService = helloService;
+    }
 
-    private final GreetingService greetingService;
-    //constructor injection
-    public HelloController( @Qualifier("formalGreetingService") GreetingService greetingService) {
-        this.greetingService = greetingService;
-        System.out.println("Inside Hello Controller Constructor");
+    @GetMapping("/hello")
+            public String getMessage(){
+        return helloService.getMessage();
     }
 
 
-    @GetMapping("/greet")
-    public String sayhello() {
-        return greetingService.sayHello();
-    }
 }

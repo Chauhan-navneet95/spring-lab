@@ -4,8 +4,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class LabMessageFormatter {
-
-
     public String format(String message) {
         return "[SPRING-LAB] " + message;
     }
