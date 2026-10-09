@@ -11,8 +11,7 @@ public class SpringLabApplication {
 
 	public static void main(String[] args) {
 		ApplicationContext context = SpringApplication.run(SpringLabApplication.class, args);
-		HelloService service =
-				context.getBean(HelloService.class);
+		HelloService service = context.getBean(HelloService.class);
 		LabMessageFormatter component =
 				context.getBean("labMessageFormatter",
 						LabMessageFormatter.class);
