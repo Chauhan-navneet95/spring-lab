@@ -31,7 +31,7 @@ public class HelloController {
 
 
     @GetMapping("/greet")
-    public void sayhello() {
-        greetingService.sayHello();
+    public String sayhello() {
+        return greetingService.sayHello();
     }
 }

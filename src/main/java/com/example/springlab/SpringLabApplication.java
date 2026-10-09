@@ -12,9 +12,6 @@ public class SpringLabApplication {
 		ApplicationContext context = SpringApplication.run(SpringLabApplication.class, args);
 		HelloService service =
 				context.getBean(HelloService.class);
-
 		System.out.println(service);
 	}
-
-
 }
