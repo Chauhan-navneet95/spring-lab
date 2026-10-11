@@ -1,58 +1,57 @@
 package com.example.springlab.service;
 
 import com.example.springlab.model.Product;
+import com.example.springlab.repository.ProductRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Service
+@Transactional
 public class ProductService {
 
-    private final Map<Long, Product> products =
-            new ConcurrentHashMap<>();
+    private final ProductRepository productRepository;
 
-    private final AtomicLong idGenerator = new AtomicLong();
-
-    public ProductService() {
-        create("Keyboard", new BigDecimal("2499.00"));
-        create("Mouse", new BigDecimal("799.00"));
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
+    @Transactional(readOnly = true)
     public List<Product> findAll() {
-        return List.copyOf(products.values());
+        return productRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public Product findById(Long id) {
-        return products.get(id);
+        return productRepository.findById(id).orElse(null);
     }
 
     public Product create(String name, BigDecimal price) {
-        Long id = idGenerator.incrementAndGet();
-
-        Product product = new Product(id, name, price);
-        products.put(id, product);
-
-        return product;
+        Product product = new Product(null, name, price);
+        return productRepository.save(product);
     }
 
-    public Product update(
-            Long id, String name, BigDecimal price) {
+    public Product update(Long id, String name, BigDecimal price) {
+        Product product = productRepository.findById(id).orElse(null);
 
-        if (!products.containsKey(id)) {
+        if (product == null) {
             return null;
         }
 
-        Product updated = new Product(id, name, price);
-        products.put(id, updated);
+        product.setName(name);
+        product.setPrice(price);
 
-        return updated;
+        return productRepository.save(product);
     }
 
     public boolean delete(Long id) {
-        return products.remove(id) != null;
+        if (!productRepository.existsById(id)) {
+            return false;
+        }
+
+        productRepository.deleteById(id);
+        return true;
     }
 }
