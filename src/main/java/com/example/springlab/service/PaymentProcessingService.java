@@ -24,7 +24,7 @@ public class PaymentProcessingService {
         this.paymentRepository = paymentRepository;
     }
 
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void createPayment(Long orderId, BigDecimal amount) {
         PurchaseOrder order = orderRepository.findById(orderId)
                 .orElseThrow();
