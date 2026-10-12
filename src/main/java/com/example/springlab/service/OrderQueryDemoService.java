@@ -1,5 +1,6 @@
 package com.example.springlab.service;
 
+import com.example.springlab.dto.OrderSummaryDto;
 import com.example.springlab.model.PurchaseOrder;
 import com.example.springlab.repository.PurchaseOrderRepository;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,12 @@ public class OrderQueryDemoService {
                 order.getTotal(),
                 order.getCustomer().getName()
         )).toList();
+    }
+
+
+    @Transactional(readOnly = true)
+    public List<OrderSummaryDto> findAllSummaries() {
+        return purchaseOrderRepository.findAllSummaries();
     }
 
 }
