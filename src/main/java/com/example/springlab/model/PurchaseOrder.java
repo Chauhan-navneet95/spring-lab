@@ -38,4 +38,8 @@ public class PurchaseOrder {
     public Customer getCustomer() {
         return customer;
     }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
 }
