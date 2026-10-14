@@ -3,6 +3,8 @@ package com.example.springlab.service;
 import com.example.springlab.model.Product;
 import com.example.springlab.repository.ProductRepository;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,10 +33,18 @@ public class ProductService {
 
     @PreAuthorize("hasRole('USER')")
     public Product create(String name, BigDecimal price) {
-        Product product = new Product(null, name, price);
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        String ownerUsername = authentication.getName();
+
+        Product product = new Product(null, name, price,ownerUsername);
         return productRepository.save(product);
     }
 
+    @PreAuthorize(
+            "@productAuthorization.canEdit(authentication, #id)"
+    )
     public Product update(Long id, String name, BigDecimal price) {
         Product product = productRepository.findById(id).orElse(null);
 

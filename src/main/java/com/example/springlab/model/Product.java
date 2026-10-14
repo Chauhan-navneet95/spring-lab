@@ -23,14 +23,26 @@ public class Product {
     @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal price;
 
+    public String getOwnerUsername() {
+        return ownerUsername;
+    }
+
+    public void setOwnerUsername(String ownerUsername) {
+        this.ownerUsername = ownerUsername;
+    }
+
+    @Column(name = "owner_username", nullable = false, length = 100)
+    private String ownerUsername;
+
     protected Product() {
         // Required by JPA
     }
 
-    public Product(Long id, String name, BigDecimal price) {
+    public Product(Long id, String name, BigDecimal price, String ownerUsername) {
         this.id = id;
         this.name = name;
         this.price = price;
+        this.ownerUsername = ownerUsername;
     }
 
     public Long getId() {
