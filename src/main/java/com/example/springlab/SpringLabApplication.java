@@ -15,21 +15,6 @@ import com.example.springlab.service.ProductService;
 @SpringBootApplication
 @ConfigurationPropertiesScan
 public class SpringLabApplication {
-
-	@Bean
-	CommandLineRunner inspectProductService(ProductService productService) {
-		return args -> {
-			System.out.println("Runtime class: "
-					+ productService.getClass().getName());
-
-			System.out.println("Is JDK proxy: "
-					+ AopUtils.isJdkDynamicProxy(productService));
-
-			System.out.println("Is CGLIB proxy: "
-					+ AopUtils.isCglibProxy(productService));
-		};
-	}
-
 	public static void main(String[] args) {
 		ApplicationContext context = SpringApplication.run(SpringLabApplication.class, args);
 		HelloService service = context.getBean(HelloService.class);
