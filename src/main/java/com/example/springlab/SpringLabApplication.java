@@ -2,19 +2,38 @@ package com.example.springlab;
 
 import com.example.springlab.service.HelloService;
 import com.example.springlab.service.LabMessageFormatter;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.aop.support.AopUtils;
+import com.example.springlab.service.ProductService;
 
 @SpringBootApplication
 @ConfigurationPropertiesScan
 public class SpringLabApplication {
 
+	@Bean
+	CommandLineRunner inspectProductService(ProductService productService) {
+		return args -> {
+			System.out.println("Runtime class: "
+					+ productService.getClass().getName());
+
+			System.out.println("Is JDK proxy: "
+					+ AopUtils.isJdkDynamicProxy(productService));
+
+			System.out.println("Is CGLIB proxy: "
+					+ AopUtils.isCglibProxy(productService));
+		};
+	}
+
 	public static void main(String[] args) {
 		ApplicationContext context = SpringApplication.run(SpringLabApplication.class, args);
 		HelloService service = context.getBean(HelloService.class);
+
 
 	}
 }
