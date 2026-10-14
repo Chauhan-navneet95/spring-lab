@@ -14,10 +14,10 @@ import java.util.Collections;
 @Configuration
 public class SecurityUsersConfig {
 
-    @Bean
+/*    @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
+    }*/
 
    /* @Bean
     UserDetailsService userDetailsService(

@@ -31,13 +31,14 @@ class ProductControllerTest {
     void shouldReturnProducts() throws Exception {
         when(productService.findAll()).thenReturn(List.of(
                 new Product(1L, "Keyboard",
-                        new BigDecimal("2499.00"))
+                        new BigDecimal("2499.00"),"labuser")
         ));
 
         mockMvc.perform(get("/api/products"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").value(1))
-                .andExpect(jsonPath("$[0].name").value("Keyboard"));
+                .andExpect(jsonPath("$[0].name").value("Keyboard"))
+                 .andExpect(jsonPath("$[0].ownerUsername").value("Keyboard"));
     }
 
     @Test
@@ -46,7 +47,7 @@ class ProductControllerTest {
                 eq("Monitor"), any(BigDecimal.class)))
                 .thenReturn(new Product(
                         3L, "Monitor",
-                        new BigDecimal("12999.00")));
+                        new BigDecimal("12999.00"),"labuser"));
 
         mockMvc.perform(post("/api/products")
                         .contentType(APPLICATION_JSON)

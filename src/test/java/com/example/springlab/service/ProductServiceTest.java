@@ -29,7 +29,7 @@ class ProductServiceTest {
                 .thenAnswer(invocation -> {
                     Product product = invocation.getArgument(0);
                     return new Product(
-                            1L, product.getName(), product.getPrice());
+                            1L, product.getName(), product.getPrice(), product.getOwnerUsername());
                 });
 
         Product created = productService.create(
