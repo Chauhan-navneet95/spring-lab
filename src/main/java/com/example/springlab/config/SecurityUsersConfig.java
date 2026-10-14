@@ -19,7 +19,7 @@ public class SecurityUsersConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
+   /* @Bean
     UserDetailsService userDetailsService(
             PasswordEncoder passwordEncoder) {
 
@@ -37,5 +37,5 @@ public class SecurityUsersConfig {
 
         return new InMemoryUserDetailsManager(user, viewer);
 
-    }
+    }*/
 }
