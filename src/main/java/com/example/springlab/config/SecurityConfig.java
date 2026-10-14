@@ -34,8 +34,7 @@ public class SecurityConfig {
                         ).permitAll()
                         //post filter authorization
                         .requestMatchers(HttpMethod.POST, "/api/products")
-                               // .hasRole("USER")
-                        .permitAll()
+                                .hasRole("USER")
                         // Everything else requires authentication
                         .anyRequest().authenticated()
                 );
