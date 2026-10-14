@@ -35,9 +35,14 @@ public class AuthController {
                         )
                 );
 
-        String token = jwtService.generateToken(
+        //simple token without authorities
+        /*String token = jwtService.generateToken(
                 authentication.getName()
-        );
+        );*/
+
+
+        //token with authorities i.e ROLE_USER
+        String token = jwtService.generateToken(authentication);
 
         return new TokenResponse(token, "Bearer");
     }
